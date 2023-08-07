@@ -24,10 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::POST('auth/login', [AuthenticationController::class, 'login']);
 
-Route::apiResource('/cats', App\Http\Controllers\Api\CategoriesController::class);
+Route::apiResource('/cats', App\Http\Controllers\Api\CategoriesController::class)->middleware('auth.jwt');
 
-Route::apiResource('/news', App\Http\Controllers\Api\NewsController::class);
+Route::apiResource('/news', App\Http\Controllers\Api\NewsController::class)->middleware('auth.jwt');
 
 Route::apiResource('/pages', App\Http\Controllers\Api\CustomPageController::class)->middleware('auth.jwt');
 
-Route::apiResource('/comment', App\Http\Controllers\Api\CommentController::class);
+Route::apiResource('/comment', App\Http\Controllers\Api\CommentController::class)->middleware('auth.jwt');
