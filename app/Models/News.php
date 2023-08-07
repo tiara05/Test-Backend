@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'category_id',
+        'news_content'
+    ];
+    
+    public function category()
+  {
+    return $this->belongsTo(Categories::class)->withDefault();
+  }
 }

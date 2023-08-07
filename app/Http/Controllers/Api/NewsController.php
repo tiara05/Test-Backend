@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Categories;
+use App\Models\News;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,22 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Http\Resources\ApiFormater;
 
-class CategoriesController extends Controller
+class NewsController extends Controller
 {
     public function index()
     {
         //get all posts
-        $cats = Categories::latest()->paginate(5);
+        $news = News::latest()->paginate(5);
 
         //return collection of posts as a resource
-        return new ApiFormater(true, 'List Data Category', $cats);
+        return new ApiFormater(true, 'List Data News', $news);
     }
 
     public function store(Request $request)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'category_name'     => 'required'
+            'category_id'       => 'required',
+            'news_content'      => 'required'
         ]);
 
         //check if validation fails
@@ -34,28 +35,30 @@ class CategoriesController extends Controller
         }
 
         //create post
-        $cats = Categories::create([
-            'category_name'     => $request->category_name,
+        $news = News::create([
+            'category_id'     => $request->category_id,
+            'news_content'    => $request->news_content,
         ]);
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Ditambahkan!', $cats);
+        return new ApiFormater(true, 'Data News Berhasil Ditambahkan!', $news);
     }
 
     public function show($id)
     {
         //find post by ID
-        $cats = Categories::find($id);
+        $news = News::find($id);
 
         //return single post as a resource
-        return new ApiFormater(true, 'Detail Data Category!', $cats);
+        return new ApiFormater(true, 'Detail News Post!', $news);
     }
 
     public function update(Request $request, $id)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'category_name'     => 'required',
+            'category_id'       => 'required',
+            'news_content'      => 'required'
         ]);
 
         //check if validation fails
@@ -64,26 +67,27 @@ class CategoriesController extends Controller
         }
 
         //find post by ID
-        $cats = Categories::find($id);
+        $news = News::find($id);
 
-        $cats->update([
-            'category_name'     => $request->category_name,
+        $news->update([
+            'category_id'     => $request->category_id,
+            'news_content'    => $request->news_content,
         ]);
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Diubah!', $cats);
+        return new ApiFormater(true, 'Data News Berhasil Diubah!', $news);
     }
 
     public function destroy($id)
     {
 
         //find post by ID
-        $cats = Categories::find($id);
+        $news = News::find($id);
         
         //delete post
-        $cats->delete();
+        $news->delete();
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Dihapus!', null);
+        return new ApiFormater(true, 'Data News Berhasil Dihapus!', null);
     }
 }

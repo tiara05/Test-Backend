@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
+            $table->string('custom_url');
+            $table->string('page_content');
             $table->timestamps();
         });
     }

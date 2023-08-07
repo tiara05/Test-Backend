@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Categories;
+use App\Models\Pages;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -10,22 +10,23 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Http\Resources\ApiFormater;
 
-class CategoriesController extends Controller
+class CustomPageController extends Controller
 {
     public function index()
     {
         //get all posts
-        $cats = Categories::latest()->paginate(5);
+        $pages = Pages::latest()->paginate(5);
 
         //return collection of posts as a resource
-        return new ApiFormater(true, 'List Data Category', $cats);
+        return new ApiFormater(true, 'List Data Pages', $pages);
     }
 
     public function store(Request $request)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'category_name'     => 'required'
+            'custom_url'        => 'required',
+            'page_content'      => 'required'
         ]);
 
         //check if validation fails
@@ -34,28 +35,30 @@ class CategoriesController extends Controller
         }
 
         //create post
-        $cats = Categories::create([
-            'category_name'     => $request->category_name,
+        $pages = Pages::create([
+            'custom_url'        => $request->custom_url,
+            'page_content'      => $request->page_content,
         ]);
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Ditambahkan!', $cats);
+        return new ApiFormater(true, 'Data Pages Berhasil Ditambahkan!', $pages);
     }
 
     public function show($id)
     {
         //find post by ID
-        $cats = Categories::find($id);
+        $pages = Pages::find($id);
 
         //return single post as a resource
-        return new ApiFormater(true, 'Detail Data Category!', $cats);
+        return new ApiFormater(true, 'Detail News Pages!', $pages);
     }
 
     public function update(Request $request, $id)
     {
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'category_name'     => 'required',
+            'custom_url'        => 'required',
+            'page_content'      => 'required'
         ]);
 
         //check if validation fails
@@ -64,26 +67,27 @@ class CategoriesController extends Controller
         }
 
         //find post by ID
-        $cats = Categories::find($id);
+        $pages = Pages::find($id);
 
-        $cats->update([
-            'category_name'     => $request->category_name,
+        $pages->update([
+            'custom_url'        => $request->custom_url,
+            'page_content'      => $request->page_content,
         ]);
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Diubah!', $cats);
+        return new ApiFormater(true, 'Data Pages Berhasil Diubah!', $pages);
     }
 
     public function destroy($id)
     {
 
         //find post by ID
-        $cats = Categories::find($id);
+        $pages = Pages::find($id);
         
         //delete post
-        $cats->delete();
+        $pages->delete();
 
         //return response
-        return new ApiFormater(true, 'Data Category Berhasil Dihapus!', null);
+        return new ApiFormater(true, 'Data Pages Berhasil Dihapus!', null);
     }
 }

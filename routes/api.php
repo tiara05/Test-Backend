@@ -25,3 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::POST('auth/login', [AuthenticationController::class, 'login']);
 
 Route::apiResource('/cats', App\Http\Controllers\Api\CategoriesController::class);
+
+Route::apiResource('/news', App\Http\Controllers\Api\NewsController::class);
+
+Route::apiResource('/pages', App\Http\Controllers\Api\CustomPageController::class);
