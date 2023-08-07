@@ -29,3 +29,5 @@ Route::apiResource('/cats', App\Http\Controllers\Api\CategoriesController::class
 Route::apiResource('/news', App\Http\Controllers\Api\NewsController::class);
 
 Route::apiResource('/pages', App\Http\Controllers\Api\CustomPageController::class);
+
+Route::apiResource('/comment', App\Http\Controllers\Api\CommentController::class);
