@@ -2,8 +2,6 @@
 
 ## Link Dokumentasi Postman
 
-<p align="center">hallo<a href="https://documenter.getpostman.com/view/14406697/2s9XxztCYw"></a></p>
-
 <p>https://documenter.getpostman.com/view/14406697/2s9XxztCYw</p>
 
 ## ERD 
