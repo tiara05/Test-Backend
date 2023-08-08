@@ -14,4 +14,9 @@ class Comment extends Model
         'comment',
         'news_id'
     ];
+
+    public function news()
+    {
+        return $this->belongsTo(News::class)->withDefault();
+    }
 }
